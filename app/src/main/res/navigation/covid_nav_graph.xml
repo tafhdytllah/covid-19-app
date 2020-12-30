@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/covid_nav_graph"
+    app:startDestination="@id/kasusFragment">
+
+    <fragment
+        android:id="@+id/kasusFragment"
+        android:name="com.tafh.covid_19app.ui.kasus.KasusFragment"
+        android:label="Kasus"
+        tools:layout="@layout/fragment_kasus" />
+    <fragment
+        android:id="@+id/informasiFragment"
+        android:name="com.tafh.covid_19app.ui.informasi.InformasiFragment"
+        android:label="Informasi"
+        tools:layout="@layout/fragment_informasi" />
+    <fragment
+        android:id="@+id/bantuanFragment"
+        android:name="com.tafh.covid_19app.ui.bantuan.BantuanFragment"
+        android:label="Bantuan"
+        tools:layout="@layout/fragment_bantuan" />
+</navigation>

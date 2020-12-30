@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item android:title="Kasus" android:id="@+id/kasusFragment" android:icon="@drawable/ic_virus" />
+    <item android:title="Informasi" android:id="@+id/informasiFragment" android:icon="@drawable/ic_informasi"/>
+    <item android:title="Bantuan" android:id="@+id/bantuanFragment" android:icon="@drawable/ic_bantuan"/>
+</menu>
