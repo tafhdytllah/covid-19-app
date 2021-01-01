@@ -4,4 +4,6 @@
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="text_title_kasus">Lawan Covid-19</string>
     <string name="text_title_informasi">Kenali Covid-19</string>
+    <string name="text_title_bantuan">Pusat Bantuan</string>
+    <string name="pusat_bantuan">Jika anda mengalami gejala seperti ini\nSilahkan hubungi kontak layanan di bawah ini :</string>
 </resources>
