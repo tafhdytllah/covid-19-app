@@ -24,6 +24,8 @@ class MainActivity : AppCompatActivity() {
         val view = binding.root
         setContentView(view)
 
+//        getData()
+
         val navHostFragment = supportFragmentManager.findFragmentById(R.id.navHostFragment) as NavHostFragment
         navController = navHostFragment.findNavController()
 
@@ -33,4 +35,34 @@ class MainActivity : AppCompatActivity() {
 
 
     }
+
+
+//    private fun getData() {
+//        ApiService.endpoint.getIndonesia().enqueue(object : Callback<List<IndonesiaResponse>> {
+//            override fun onResponse(
+//                call: Call<List<IndonesiaResponse>>,
+//                response: Response<List<IndonesiaResponse>>
+//            ) {
+//                Log.d("MainActivity", "Response success")
+//                if (response.isSuccessful) {
+//                    val indonesiaResponse: List<IndonesiaResponse> = response.body()!!
+//                    setResponse( indonesiaResponse )
+//                }
+//            }
+//
+//            override fun onFailure(call: Call<List<IndonesiaResponse>>, t: Throwable) {
+//
+//                Log.d("MainActivity", "Response failure")
+//            }
+//
+//
+//        })
+//    }
+//
+//    private fun setResponse(indonesiaResponse: List<IndonesiaResponse>) {
+//        val response = indonesiaResponse[0]
+//
+//        Log.d("MainActivity", "positive: ${response.positif}, recover: ${response.sembuh}, death: ${response.meninggal}")
+//
+//    }
 }

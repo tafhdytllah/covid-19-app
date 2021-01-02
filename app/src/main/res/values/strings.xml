@@ -6,4 +6,6 @@
     <string name="text_title_informasi">Kenali Covid-19</string>
     <string name="text_title_bantuan">Pusat Bantuan</string>
     <string name="pusat_bantuan">Jika anda mengalami gejala seperti ini\nSilahkan hubungi kontak layanan di bawah ini :</string>
+
+    <string name="positif_format">%d</string>
 </resources>
