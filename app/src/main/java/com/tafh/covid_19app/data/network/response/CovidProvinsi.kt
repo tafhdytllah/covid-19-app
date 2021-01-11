@@ -3,7 +3,7 @@ package com.tafh.covid_19app.data.network.response
 
 import com.google.gson.annotations.SerializedName
 
-data class Attributes(
+data class CovidProvinsi(
     @SerializedName("FID")
     val fID: Int,
     @SerializedName("Kasus_Meni")

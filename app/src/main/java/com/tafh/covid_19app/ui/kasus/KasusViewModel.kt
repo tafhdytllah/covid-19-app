@@ -1,57 +1,71 @@
 package com.tafh.covid_19app.ui.kasus
 
-import android.util.Log
-import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModel
-import com.tafh.covid_19app.data.network.api.RetrofitInstance
+import androidx.lifecycle.viewModelScope
 import com.tafh.covid_19app.data.network.response.IndonesiaResponse
-import retrofit2.Call
-import retrofit2.Callback
+import com.tafh.covid_19app.data.repository.CovidRepository
+import com.tafh.covid_19app.utils.Resource
+import kotlinx.coroutines.launch
 import retrofit2.Response
 
-class KasusViewModel : ViewModel() {
+class KasusViewModel(private val covidRepository: CovidRepository) : ViewModel() {
 
-    private val _positif = MutableLiveData<String>()
-    val positif: LiveData<String> get() = _positif
+    val covidIndonesia: MutableLiveData<Resource<IndonesiaResponse>> = MutableLiveData()
+    var covidIndonesiaResponse: IndonesiaResponse? = null
 
-    private val _sembuh = MutableLiveData<String>()
-    val sembuh: LiveData<String> get() = _sembuh
+    init {
+        getCovidIndonesia()
+    }
 
-    private val _meninggal = MutableLiveData<String>()
-    val meninggal: LiveData<String> get() = _meninggal
+    fun getCovidIndonesia() = viewModelScope.launch {
+        safeCovidIndonesiaCalls()
+    }
 
-    fun makeApiCall() {
-        val service = RetrofitInstance
 
-        service.endpoint.getIndonesia().enqueue(object : Callback<List<IndonesiaResponse>> {
-            override fun onResponse(
-                call: Call<List<IndonesiaResponse>>,
-                response: Response<List<IndonesiaResponse>>
-            ) {
-                Log.d("MainActivity", "Response success")
-                if (response.isSuccessful) {
-                    val indonesiaResponse: List<IndonesiaResponse> = response.body()!!
-                    setResponse( indonesiaResponse )
+    private suspend fun safeCovidIndonesiaCalls() {
+        covidIndonesia.postValue(Resource.loading(data = null))
+
+        try {
+            val response = covidRepository.getCovidIndonesia()
+            covidIndonesia.postValue(handleCovidIndonesiaResponse(response))
+        } catch (exception: Exception) {
+            covidIndonesia.postValue(Resource.error(data = null, message = exception.message ?: "Error Occured!"))
+        }
+    }
+
+    private fun handleCovidIndonesiaResponse(response: Response<List<IndonesiaResponse>>): Resource<IndonesiaResponse>? {
+
+        if (response.isSuccessful) {
+            response.body()?.let {
+                val resultResponse = it[0]
+                if (covidIndonesiaResponse == null) {
+                    covidIndonesiaResponse = resultResponse
+                } else {
+                    val listOld = mutableListOf(
+                            covidIndonesiaResponse?.dirawat,
+                            covidIndonesiaResponse?.meninggal,
+                            covidIndonesiaResponse?.name,
+                            covidIndonesiaResponse?.positif,
+                            covidIndonesiaResponse?.sembuh
+                    )
+                    val listNew = mutableListOf(
+                            resultResponse.dirawat,
+                            resultResponse.meninggal,
+                            resultResponse.name,
+                            resultResponse.positif,
+                            resultResponse.sembuh
+                    )
+                    with(listOld) {
+                        clear()
+                        addAll(listNew)
+                    }
                 }
+                return Resource.success(data = covidIndonesiaResponse ?: resultResponse)
             }
-
-            override fun onFailure(call: Call<List<IndonesiaResponse>>, t: Throwable) {
-                TODO("Not yet implemented")
-            }
-
-        })
+        }
+        return Resource.error(data = null, message = response.message() ?: "Error Occured!")
     }
 
-    private fun setResponse(indonesiaResponse: List<IndonesiaResponse>) {
-        val response = indonesiaResponse[0]
-        val death = response.meninggal
-        val recovery = response.sembuh
-        val positive = response.positif
-
-        _positif.value = positive
-        _sembuh.value = recovery
-        _meninggal.value = death
-
-    }
 }

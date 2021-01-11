@@ -3,13 +3,6 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
-    <data>
-        <variable
-            name="kasusViewModel"
-            type="com.tafh.covid_19app.ui.kasus.KasusViewModel" />
-
-    </data>
-
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -41,7 +34,6 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/tvTitleInformasi" />
-
 
         <com.google.android.material.circularreveal.CircularRevealFrameLayout
             android:layout_width="match_parent"
@@ -215,12 +207,11 @@
                                     android:layout_height="wrap_content"
                                     android:layout_marginTop="16dp"
                                     android:elevation="1dp"
-                                    android:gravity="center"
                                     android:fontFamily="@font/roboto_mono_bold"
-                                    tools:text="0"
-                                    android:text="@{kasusViewModel.positif}"
+                                    android:gravity="center"
                                     android:textColor="@color/red_dark"
-                                    android:textSize="22sp" />
+                                    android:textSize="22sp"
+                                    tools:text="0" />
 
                                 <TextView
                                     android:layout_width="wrap_content"
@@ -266,11 +257,11 @@
                                     android:layout_marginTop="16dp"
                                     android:elevation="1dp"
                                     android:fontFamily="@font/roboto_mono_bold"
-                                    tools:text="0"
-                                    android:text="@{kasusViewModel.sembuh}"
                                     android:gravity="center"
+
                                     android:textColor="@color/green_dark"
-                                    android:textSize="22sp" />
+                                    android:textSize="22sp"
+                                    tools:text="0" />
 
                                 <TextView
                                     android:layout_width="wrap_content"
@@ -316,11 +307,11 @@
                                     android:layout_marginTop="16dp"
                                     android:elevation="1dp"
                                     android:fontFamily="@font/roboto_mono_bold"
-                                    tools:text="0"
-                                    android:text="@{kasusViewModel.meninggal}"
                                     android:gravity="center"
+
                                     android:textColor="@color/yellow_dark"
-                                    android:textSize="22sp" />
+                                    android:textSize="22sp"
+                                    tools:text="0" />
 
                                 <TextView
                                     android:layout_width="wrap_content"
@@ -346,6 +337,20 @@
 
 
         </com.google.android.material.circularreveal.CircularRevealFrameLayout>
+
+
+        <ProgressBar
+            android:elevation="5dp"
+            android:id="@+id/kasusProgressBar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            style="@style/Widget.AppCompat.ProgressBar"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:visibility="invisible"/>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

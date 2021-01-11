@@ -12,7 +12,7 @@
         android:supportsRtl="true"
         android:usesCleartextTraffic="true"
         android:theme="@style/Theme.Covid19App">
-        <activity android:name=".ui.MainActivity">
+        <activity android:name=".ui.CovidActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
