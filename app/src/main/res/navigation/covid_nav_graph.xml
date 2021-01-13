@@ -9,7 +9,11 @@
         android:id="@+id/kasusFragment"
         android:name="com.tafh.covid_19app.ui.kasus.KasusFragment"
         android:label="Kasus"
-        tools:layout="@layout/fragment_kasus" />
+        tools:layout="@layout/fragment_kasus" >
+        <action
+            android:id="@+id/action_kasusFragment_to_cariLokasiFragment"
+            app:destination="@id/cariLokasiFragment" />
+    </fragment>
     <fragment
         android:id="@+id/informasiFragment"
         android:name="com.tafh.covid_19app.ui.informasi.InformasiFragment"
@@ -20,4 +24,9 @@
         android:name="com.tafh.covid_19app.ui.bantuan.BantuanFragment"
         android:label="Bantuan"
         tools:layout="@layout/fragment_bantuan" />
+    <fragment
+        android:id="@+id/cariLokasiFragment"
+        android:name="com.tafh.covid_19app.ui.cariLokasi.CariLokasiFragment"
+        android:label="Cari lokasi"
+        tools:layout="@layout/fragment_cari_lokasi" />
 </navigation>

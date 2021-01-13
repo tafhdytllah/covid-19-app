@@ -7,6 +7,8 @@ import androidx.databinding.DataBindingUtil
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.fragment.findNavController
+import androidx.navigation.ui.AppBarConfiguration
+import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
 import com.tafh.covid_19app.R
 import com.tafh.covid_19app.databinding.ActivityMainBinding
@@ -24,9 +26,20 @@ class CovidActivity : AppCompatActivity() {
         val navHostFragment = supportFragmentManager.findFragmentById(R.id.navHostFragment) as NavHostFragment
         navController = navHostFragment.findNavController()
 
+        setSupportActionBar(findViewById(R.id.toolbar))
+
+        val appBarConfiguration = AppBarConfiguration.Builder(
+                R.id.kasusFragment, R.id.informasiFragment, R.id.bantuanFragment
+        ).build()
+        setupActionBarWithNavController(navController, appBarConfiguration)
+
         binding.apply {
             bottomNavigationView.setupWithNavController(navController)
         }
 
+    }
+
+    override fun onSupportNavigateUp(): Boolean {
+        return navController.navigateUp() || super.onSupportNavigateUp()
     }
 }

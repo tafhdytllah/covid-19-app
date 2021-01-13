@@ -1,18 +1,23 @@
 package com.tafh.covid_19app.ui.kasus
 
+import android.app.ActionBar
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.widget.ActionBarContainer
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.findNavController
 import com.tafh.covid_19app.R
 import com.tafh.covid_19app.data.network.response.IndonesiaResponse
 import com.tafh.covid_19app.data.repository.CovidRepository
 import com.tafh.covid_19app.databinding.FragmentKasusBinding
+import com.tafh.covid_19app.utils.Status
 
 
 class KasusFragment : Fragment(R.layout.fragment_kasus) {
@@ -22,12 +27,23 @@ class KasusFragment : Fragment(R.layout.fragment_kasus) {
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         binding = FragmentKasusBinding.inflate(inflater, container, false)
+
+        (activity as AppCompatActivity).supportActionBar?.hide()
+
         setupViewModel()
         showProgressBar()
         setupObservers()
 
+        binding.etCarilokasi.setOnClickListener { view ->
+
+            val actiion = KasusFragmentDirections.actionKasusFragmentToCariLokasiFragment()
+            view.findNavController().navigate(actiion)
+
+        }
+
         return binding.root
     }
+
 
     private fun setupViewModel() {
         viewModel = ViewModelProvider(

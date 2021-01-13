@@ -6,4 +6,6 @@ class CovidRepository {
 
     suspend fun getCovidIndonesia() = apiService.getIndonesia()
 
+    suspend fun getCovidProvinsi() = apiService.getProvinsi()
+
 }

@@ -11,6 +11,7 @@
         android:paddingTop="24dp"
         tools:context=".ui.kasus.KasusFragment">
 
+
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/tvTitleInformasi"
             android:layout_width="wrap_content"
@@ -63,7 +64,6 @@
                         android:layout_width="match_parent"
                         android:layout_height="50dp"
                         android:layout_marginTop="8dp"
-                        android:background="@drawable/bg_lokasi_kasus"
                         android:elevation="2dp"
                         android:focusableInTouchMode="true"
                         android:paddingLeft="16dp"
@@ -72,38 +72,72 @@
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent">
 
-                        <androidx.appcompat.widget.AppCompatImageView
-                            android:id="@+id/imageView2"
-                            android:layout_width="22dp"
-                            android:layout_height="22dp"
-                            android:scaleType="fitXY"
-                            android:src="@drawable/ic_location"
-                            app:layout_constraintBottom_toBottomOf="@+id/textView"
-                            app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toTopOf="@+id/textView" />
+                        <com.google.android.material.textfield.TextInputLayout
 
-                        <androidx.appcompat.widget.AppCompatTextView
-                            android:id="@+id/textView"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginStart="24dp"
-                            android:text="Indonesia (pilih lokasi anda)"
-                            android:textColor="@color/text_color_dark"
-                            android:textSize="16sp"
+                            android:elevation="2dp"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:gravity="center"
+                            app:boxBackgroundMode="none"
+                            app:endIconDrawable="@drawable/ic_arrow_drop_down"
+                            app:hintEnabled="false"
                             app:layout_constraintBottom_toBottomOf="parent"
-                            app:layout_constraintStart_toEndOf="@+id/imageView2"
-                            app:layout_constraintTop_toTopOf="parent" />
-
-                        <androidx.appcompat.widget.AppCompatImageView
-                            android:layout_width="36dp"
-                            android:layout_height="36dp"
-                            android:layout_marginEnd="4dp"
-                            android:elevation="1dp"
-                            android:scaleType="fitXY"
-                            android:src="@drawable/ic_arrow_drop_down"
-                            app:layout_constraintBottom_toBottomOf="@+id/textView"
                             app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintTop_toTopOf="@+id/textView" />
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:startIconDrawable="@drawable/ic_search">
+
+                            <com.google.android.material.textfield.TextInputEditText
+                                android:id="@+id/etCarilokasi"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:elevation="2dp"
+                                android:background="@drawable/bg_lokasi_kasus"
+                                android:cursorVisible="false"
+                                android:focusable="false"
+                                android:focusableInTouchMode="false"
+                                android:paddingLeft="10dp"
+                                android:paddingTop="11dp"
+                                android:paddingBottom="10dp"
+                                android:text="Indonesia (pilih lokasi anda)"
+                                android:textAlignment="textStart"
+                                android:textColor="@color/teal_dark"
+                                android:textSize="14sp" />
+
+                        </com.google.android.material.textfield.TextInputLayout>
+
+                        <!--                        <androidx.appcompat.widget.AppCompatImageView-->
+                        <!--                            android:id="@+id/imageView2"-->
+                        <!--                            android:layout_width="22dp"-->
+                        <!--                            android:layout_height="22dp"-->
+                        <!--                            android:scaleType="fitXY"-->
+                        <!--                            android:src="@drawable/ic_location"-->
+                        <!--                            app:layout_constraintBottom_toBottomOf="@+id/textView"-->
+                        <!--                            app:layout_constraintStart_toStartOf="parent"-->
+                        <!--                            app:layout_constraintTop_toTopOf="@+id/textView" />-->
+
+                        <!--                        <androidx.appcompat.widget.AppCompatTextView-->
+                        <!--                            android:id="@+id/textView"-->
+                        <!--                            android:layout_width="wrap_content"-->
+                        <!--                            android:layout_height="wrap_content"-->
+                        <!--                            android:layout_marginStart="24dp"-->
+                        <!--                            android:text="Indonesia (pilih lokasi anda)"-->
+                        <!--                            android:textColor="@color/text_color_dark"-->
+                        <!--                            android:textSize="16sp"-->
+                        <!--                            app:layout_constraintBottom_toBottomOf="parent"-->
+                        <!--                            app:layout_constraintStart_toEndOf="@+id/imageView2"-->
+                        <!--                            app:layout_constraintTop_toTopOf="parent" />-->
+
+                        <!--                        <androidx.appcompat.widget.AppCompatImageView-->
+                        <!--                            android:layout_width="36dp"-->
+                        <!--                            android:layout_height="36dp"-->
+                        <!--                            android:layout_marginEnd="4dp"-->
+                        <!--                            android:elevation="1dp"-->
+                        <!--                            android:scaleType="fitXY"-->
+                        <!--                            android:src="@drawable/ic_arrow_drop_down"-->
+                        <!--                            app:layout_constraintBottom_toBottomOf="@+id/textView"-->
+                        <!--                            app:layout_constraintEnd_toEndOf="parent"-->
+                        <!--                            app:layout_constraintTop_toTopOf="@+id/textView" />-->
 
                     </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -340,17 +374,17 @@
 
 
         <ProgressBar
-            android:elevation="5dp"
             android:id="@+id/kasusProgressBar"
+            style="@style/Widget.AppCompat.ProgressBar"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            style="@style/Widget.AppCompat.ProgressBar"
+            android:elevation="5dp"
+            android:visibility="invisible"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            android:visibility="invisible"/>
+            app:layout_constraintTop_toTopOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

@@ -2,6 +2,7 @@ package com.tafh.covid_19app.data.network.api
 
 import com.tafh.covid_19app.data.network.response.IndonesiaResponse
 import com.tafh.covid_19app.data.network.response.ProvinsiResponse
+import retrofit2.Call
 import retrofit2.Response
 
 import retrofit2.http.GET
@@ -19,5 +20,6 @@ interface ApiService {
     suspend fun getIndonesia(): Response<List<IndonesiaResponse>>
 
     @GET("indonesia/provinsi")
-    fun getProvinsi(): Response<List<ProvinsiResponse>>
+    suspend fun getProvinsi(): Response<ArrayList<ProvinsiResponse>>
+
 }

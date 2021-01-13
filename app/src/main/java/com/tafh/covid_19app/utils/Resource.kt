@@ -1,6 +1,5 @@
 package com.tafh.covid_19app.utils
 
-import com.tafh.covid_19app.ui.kasus.Status
 
 data class Resource<out T>(
         val status: Status,
