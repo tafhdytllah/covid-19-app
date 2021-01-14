@@ -13,6 +13,9 @@
         <action
             android:id="@+id/action_kasusFragment_to_cariLokasiFragment"
             app:destination="@id/cariLokasiFragment" />
+        <action
+            android:id="@+id/action_kasusFragment_to_detailFragment"
+            app:destination="@id/detailFragment" />
     </fragment>
     <fragment
         android:id="@+id/informasiFragment"
@@ -28,5 +31,14 @@
         android:id="@+id/cariLokasiFragment"
         android:name="com.tafh.covid_19app.ui.cariLokasi.CariLokasiFragment"
         android:label="Cari lokasi"
-        tools:layout="@layout/fragment_cari_lokasi" />
+        tools:layout="@layout/fragment_cari_lokasi" >
+        <action
+            android:id="@+id/action_cariLokasiFragment_to_kasusFragment"
+            app:destination="@id/kasusFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/detailFragment"
+        android:name="com.tafh.covid_19app.ui.detail.DetailFragment"
+        android:label="Detail"
+        tools:layout="@layout/fragment_detail" />
 </navigation>

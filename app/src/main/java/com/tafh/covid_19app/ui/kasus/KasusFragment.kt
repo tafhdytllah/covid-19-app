@@ -22,11 +22,17 @@ import com.tafh.covid_19app.utils.Status
 
 class KasusFragment : Fragment(R.layout.fragment_kasus) {
 
-    private lateinit var binding: FragmentKasusBinding
+    private var _binding: FragmentKasusBinding? = null
+    private val binding get() = _binding!!
+
     private lateinit var viewModel: KasusViewModel
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        binding = FragmentKasusBinding.inflate(inflater, container, false)
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
+        _binding = FragmentKasusBinding.inflate(inflater, container, false)
 
         (activity as AppCompatActivity).supportActionBar?.hide()
 
@@ -41,14 +47,19 @@ class KasusFragment : Fragment(R.layout.fragment_kasus) {
 
         }
 
+        binding.tvDetail.setOnClickListener { view ->
+            val action = KasusFragmentDirections.actionKasusFragmentToDetailFragment()
+            view.findNavController().navigate(action)
+        }
+
         return binding.root
     }
 
 
     private fun setupViewModel() {
         viewModel = ViewModelProvider(
-                this,
-                KasusViewModelFactory(CovidRepository())
+            this,
+            KasusViewModelFactory(CovidRepository())
         ).get(KasusViewModel::class.java)
     }
 
@@ -65,7 +76,8 @@ class KasusFragment : Fragment(R.layout.fragment_kasus) {
                     Status.ERROR -> {
                         hideProgressBar()
                         response.message.let { message ->
-                            Toast.makeText(context, "an error accured: $message", Toast.LENGTH_LONG).show()
+                            Toast.makeText(context, "an error accured: $message", Toast.LENGTH_LONG)
+                                .show()
                         }
                     }
                     Status.LOADING -> {
@@ -96,8 +108,6 @@ class KasusFragment : Fragment(R.layout.fragment_kasus) {
         binding.kasusProgressBar.visibility = View.VISIBLE
 
     }
-
-
 
 
 }

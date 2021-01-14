@@ -22,13 +22,17 @@ import kotlin.collections.ArrayList
 
 class CariLokasiFragment : Fragment(R.layout.fragment_cari_lokasi) {
 
-    private lateinit var binding: FragmentCariLokasiBinding
+    private var _binding: FragmentCariLokasiBinding? = null
+    private val binding get() = _binding!!
+
     private lateinit var viewModel: CariLokasiViewModel
     private var provinsiList = ArrayList<ProvinsiResponse>()
 
+    private lateinit var recyclerView: RecyclerView
+
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
-        binding = FragmentCariLokasiBinding.inflate(inflater, container, false)
+        _binding = FragmentCariLokasiBinding.inflate(inflater, container, false)
 
         val actionBar = (activity as AppCompatActivity).supportActionBar
         actionBar!!.show()
@@ -36,16 +40,12 @@ class CariLokasiFragment : Fragment(R.layout.fragment_cari_lokasi) {
 
         setupViewModel()
         setupObservers()
-        setupAdapter()
 
-
+        recyclerView = initRecyclerViewSearchAkun()
 
         binding.etCariLokasi.addTextChangedListener(object : TextWatcher {
             override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
-                val recyclerView = initRecyclerViewSearchAkun()
 
-                val adapter = CariLokasiAdapter(provinsiList)
-                recyclerView?.adapter = adapter
             }
 
             override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
@@ -79,14 +79,7 @@ class CariLokasiFragment : Fragment(R.layout.fragment_cari_lokasi) {
         })
     }
 
-    private fun setupAdapter() {
-        binding.apply {
-            with(rvCariLokasi) {
-                setHasFixedSize(true)
-                layoutManager = LinearLayoutManager(context)
-            }
-        }
-    }
+
 
     private fun setupViewModel() {
         viewModel = ViewModelProvider(
@@ -110,17 +103,20 @@ class CariLokasiFragment : Fragment(R.layout.fragment_cari_lokasi) {
             }
         }
 
-        val recyclerView = initRecyclerViewSearchAkun()
 
         val adapter = CariLokasiAdapter(filterList)
-        recyclerView?.adapter = adapter
+        recyclerView.adapter = adapter
 
     }
 
-    private fun initRecyclerViewSearchAkun(): RecyclerView? {
-        val layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
-        val recyclerView = binding.rvCariLokasi
-        recyclerView.layoutManager = layoutManager
+    private fun initRecyclerViewSearchAkun(): RecyclerView {
+
+        recyclerView = binding.rvCariLokasi
+
+        recyclerView.apply {
+            setHasFixedSize(true)
+            layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
+        }
 
         return recyclerView
     }

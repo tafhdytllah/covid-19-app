@@ -4,13 +4,13 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.tafh.covid_19app.data.network.response.ProvinsiResponse
-import com.tafh.covid_19app.databinding.ItemProvinsiBinding
+import com.tafh.covid_19app.databinding.ItemCariLokasiBinding
 
 class CariLokasiAdapter(
         private val list: ArrayList<ProvinsiResponse>
 ) : RecyclerView.Adapter<CariLokasiAdapter.CariLokasiViewHolder>() {
 
-    inner class CariLokasiViewHolder(private val binding: ItemProvinsiBinding) : RecyclerView.ViewHolder(binding.root) {
+    inner class CariLokasiViewHolder(private val binding: ItemCariLokasiBinding) : RecyclerView.ViewHolder(binding.root) {
         fun bind(provinsi: ProvinsiResponse) {
             binding.apply {
                 tvNamaProvinsi.text = provinsi.attributes.provinsi
@@ -19,7 +19,7 @@ class CariLokasiAdapter(
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CariLokasiViewHolder {
-        val view = ItemProvinsiBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        val view = ItemCariLokasiBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return CariLokasiViewHolder(view)
     }
 
