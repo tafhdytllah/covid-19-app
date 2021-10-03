@@ -6,7 +6,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.tafh.covid_19app.data.network.response.ProvinsiResponse
 import com.tafh.covid_19app.databinding.ItemProvinsiBinding
 
-class DetailAdapter(private val list: ArrayList<ProvinsiResponse>) :
+class DetailAdapter(private val list: List<ProvinsiResponse>) :
     RecyclerView.Adapter<DetailAdapter.ViewHolder>() {
 
     inner class ViewHolder(private val binding: ItemProvinsiBinding) : RecyclerView.ViewHolder(binding.root) {

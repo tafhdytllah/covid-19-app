@@ -11,8 +11,7 @@ import retrofit2.Response
 
 class DetailViewModel(private val covidRepository: CovidRepository) : ViewModel() {
 
-    val covidProvinsi: MutableLiveData<Resource<ArrayList<ProvinsiResponse>>> = MutableLiveData()
-    var covidProvinsiResponse = ArrayList<ProvinsiResponse>()
+    val covidProvinsi: MutableLiveData<Resource<List<ProvinsiResponse>>> = MutableLiveData()
 
     init {
         getCovidProvinsi()
@@ -34,8 +33,8 @@ class DetailViewModel(private val covidRepository: CovidRepository) : ViewModel(
     }
 
     private fun handleCovidProvinsiResponse(
-            response: Response<ArrayList<ProvinsiResponse>>
-    ): Resource<ArrayList<ProvinsiResponse>>? {
+            response: Response<List<ProvinsiResponse>>
+    ): Resource<List<ProvinsiResponse>>? {
 
         if (response.isSuccessful) {
             response.body()?.let {

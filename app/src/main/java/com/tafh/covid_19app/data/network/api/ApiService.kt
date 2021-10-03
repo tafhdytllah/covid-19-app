@@ -20,6 +20,6 @@ interface ApiService {
     suspend fun getIndonesia(): Response<List<IndonesiaResponse>>
 
     @GET("indonesia/provinsi")
-    suspend fun getProvinsi(): Response<ArrayList<ProvinsiResponse>>
+    suspend fun getProvinsi(): Response<List<ProvinsiResponse>>
 
 }

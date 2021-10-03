@@ -26,7 +26,7 @@ class CariLokasiFragment : Fragment(R.layout.fragment_cari_lokasi) {
     private val binding get() = _binding!!
 
     private lateinit var viewModel: CariLokasiViewModel
-    private var provinsiList = ArrayList<ProvinsiResponse>()
+    private var provinsiList = emptyList<ProvinsiResponse>()
 
     private lateinit var recyclerView: RecyclerView
 
@@ -88,7 +88,7 @@ class CariLokasiFragment : Fragment(R.layout.fragment_cari_lokasi) {
         ).get(CariLokasiViewModel::class.java)
     }
 
-    private fun retrieveList(provinsiResponse: ArrayList<ProvinsiResponse>) {
+    private fun retrieveList(provinsiResponse: List<ProvinsiResponse>) {
 
         provinsiList = provinsiResponse
 

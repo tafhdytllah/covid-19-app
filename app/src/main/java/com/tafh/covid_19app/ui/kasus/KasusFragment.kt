@@ -17,6 +17,8 @@ import com.tafh.covid_19app.R
 import com.tafh.covid_19app.data.network.response.IndonesiaResponse
 import com.tafh.covid_19app.data.repository.CovidRepository
 import com.tafh.covid_19app.databinding.FragmentKasusBinding
+import com.tafh.covid_19app.ui.CovidViewModel
+import com.tafh.covid_19app.ui.CovidViewModelFactory
 import com.tafh.covid_19app.utils.Status
 
 
@@ -25,7 +27,7 @@ class KasusFragment : Fragment(R.layout.fragment_kasus) {
     private var _binding: FragmentKasusBinding? = null
     private val binding get() = _binding!!
 
-    private lateinit var viewModel: KasusViewModel
+    private lateinit var viewModel: CovidViewModel
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -38,7 +40,25 @@ class KasusFragment : Fragment(R.layout.fragment_kasus) {
 
         setupViewModel()
         showProgressBar()
-        setupObservers()
+
+        viewModel.covidIndoResponse.observe(viewLifecycleOwner, Observer { response ->
+            if (response.isSuccessful) {
+                val covidIndonesia = response.body()?.get(0)!!
+                hideProgressBar()
+                binding.apply {
+                    tvPositive.text = covidIndonesia.positif
+                    tvRecover.text = covidIndonesia.sembuh
+                    tvDeath.text = covidIndonesia.meninggal
+                }
+
+            } else {
+                hideProgressBar()
+                Toast.makeText(requireContext(), "${response.errorBody()}", Toast.LENGTH_SHORT).show()
+            }
+
+        })
+
+//        setupObservers()
 
         binding.etCarilokasi.setOnClickListener { view ->
 
@@ -59,45 +79,45 @@ class KasusFragment : Fragment(R.layout.fragment_kasus) {
     private fun setupViewModel() {
         viewModel = ViewModelProvider(
             this,
-            KasusViewModelFactory(CovidRepository())
-        ).get(KasusViewModel::class.java)
+            CovidViewModelFactory(CovidRepository())
+        ).get(CovidViewModel::class.java)
     }
 
-    private fun setupObservers() {
-        viewModel.covidIndonesia.observe(viewLifecycleOwner, Observer { response ->
-            response?.let { resource ->
-                when (resource.status) {
-                    Status.SUCCESS -> {
-                        hideProgressBar()
-                        resource.data?.let { indonesiaResponse ->
-                            retrieveList(indonesiaResponse)
-                        }
-                    }
-                    Status.ERROR -> {
-                        hideProgressBar()
-                        response.message.let { message ->
-                            Toast.makeText(context, "an error accured: $message", Toast.LENGTH_LONG)
-                                .show()
-                        }
-                    }
-                    Status.LOADING -> {
-                        showProgressBar()
-                    }
-                }
-            }
-        })
-    }
+//    private fun setupObservers() {
+//        viewModel.covidIndonesia.observe(viewLifecycleOwner, Observer { response ->
+//            response?.let { resource ->
+//                when (resource.status) {
+//                    Status.SUCCESS -> {
+//                        hideProgressBar()
+//                        resource.data?.let { indonesiaResponse ->
+//                            retrieveList(indonesiaResponse)
+//                        }
+//                    }
+//                    Status.ERROR -> {
+//                        hideProgressBar()
+//                        response.message.let { message ->
+//                            Toast.makeText(context, "an error accured: $message", Toast.LENGTH_LONG)
+//                                .show()
+//                        }
+//                    }
+//                    Status.LOADING -> {
+//                        showProgressBar()
+//                    }
+//                }
+//            }
+//        })
+//    }
 
 
-    private fun retrieveList(indonesiaResponse: IndonesiaResponse) {
-        Log.i("KasusFragment", "$indonesiaResponse")
-        val response = indonesiaResponse
-        binding.apply {
-            tvPositive.text = response.positif
-            tvRecover.text = response.sembuh
-            tvDeath.text = response.meninggal
-        }
-    }
+//    private fun retrieveList(indonesiaResponse: IndonesiaResponse) {
+//        Log.i("KasusFragment", "$indonesiaResponse")
+//        val response = indonesiaResponse
+//        binding.apply {
+//            tvPositive.text = response.positif
+//            tvRecover.text = response.sembuh
+//            tvDeath.text = response.meninggal
+//        }
+//    }
 
     private fun hideProgressBar() {
         binding.kasusProgressBar.visibility = View.INVISIBLE

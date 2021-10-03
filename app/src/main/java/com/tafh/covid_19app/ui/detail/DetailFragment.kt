@@ -25,7 +25,7 @@ class DetailFragment : Fragment(R.layout.fragment_detail) {
 
     private lateinit var viewModel: DetailViewModel
 
-    private var list = ArrayList<ProvinsiResponse>()
+    private var list = emptyList<ProvinsiResponse>()
     private lateinit var recyclerView: RecyclerView
 
     override fun onCreateView(
@@ -33,6 +33,7 @@ class DetailFragment : Fragment(R.layout.fragment_detail) {
         savedInstanceState: Bundle?
     ): View? {
         _binding = FragmentDetailBinding.inflate(inflater, container, false)
+
         val actionBar = (activity as AppCompatActivity).supportActionBar
         actionBar!!.show()
         actionBar.title = ""
@@ -83,7 +84,7 @@ class DetailFragment : Fragment(R.layout.fragment_detail) {
         })
     }
 
-    private fun retrieveList(provinsiResponse: ArrayList<ProvinsiResponse>) {
+    private fun retrieveList(provinsiResponse: List<ProvinsiResponse>) {
         Log.i("DetailAdapter", "")
         list = provinsiResponse
 
